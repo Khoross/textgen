@@ -21,14 +21,16 @@ from keras.datasets import mnist
 # TODO:
 # implement class for handling the VAE
 # contains:
-#   tokenizer
-#   word embeddings (should also embed grammatical symbols and EOT)
+#   tokenizer (inc word-phrases up to 4 long)
+#   word embeddings (should also embed grammatical symbols, generic embedding for unknown word)
 #   unembedding function (cosine distance minimizer) - for use in generator
 #   encoder model
 #   decoder model
+#   length decoder model
 #   glue
 #   generator function
-#   training function (MSE on cosine distance until EOF)
+#   training function (MSE on length, MSE on cosine distance until length)
+#   ALT: no embeddings, use BOW, include EOT symbol, MSE on BOW errors before EOT
 # should determine 
 
 batch_size = 100
