@@ -1,0 +1,25 @@
+# PURE TEST
+import numpy as np
+from keras.models import Model
+from keras.layers import Input, LSTM, Dense
+from keras.utils import to_categorical
+
+def decode(x):
+  return(np.argmax(x))
+
+x = np.random.choice(30, (100,102,1))
+y = np.delete(x, [0, 1], 1)
+x = np.delete(x, [-1, -2], 1)
+
+xIn = to_categorical(x)
+yOut = to_categorical(y)
+a = Input(shape=(None,30))
+b = Embedding(a)
+c = LSTM(10)(b)
+d = LSTM(10)(c)
+e = Dense(30, activation='softmax')(d)
+
+model = Model(a, e)
+model.compile(loss='categorical_crossentropy')
+model.fit(xIn, yOut, epochs=30)
+model.predict(to_categorical([1,2,3,4,5,6,7,8,9,10], 30)
