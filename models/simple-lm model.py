@@ -17,6 +17,8 @@ from keras.model import Model
 from keras.utils import to_categorical
 from keras.preprocessing import Tokenizer, one_hot
 import pandas as pd
+import numpy as np
+from scipy.spatial import cdist
 
 [[load data]]
 
@@ -68,7 +70,7 @@ class simple-generator(object):
         # repeat until EOT marker, timeout, or too many iterations (80 should do it - longest text is 46)
         # 
         
-        dists = scipy.spatial.distance.cdist(predicted, embedding_weights)
+        dists = cdist(predicted, embedding_weights)
         probs = np.reshape(2*scipy.stats.norm.sf(dists, shape=eps), (dimensions))
         pred_token = np.random.choice(dimensions, p=probs)
 
