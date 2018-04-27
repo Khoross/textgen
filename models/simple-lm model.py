@@ -44,12 +44,11 @@ class simple-generator(object):
         inputs = Input(shape=(None,1))
         x = Embedding(1, dimensions, weights=[embedding_matrix], trainable=False)(x)
         x = Masking(x)
-        x = LSTM(num_nodes)(x)
+        x = LSTM(num_nodes, return_sequences=True)(x)
         x = Dropout(0.2)(x)
-        x = LSTM(num_nodes)(x)
+        x = LSTM(num_nodes, return_sequences=True)(x)
         x = Dropout(0.2)(x)
-        x = Dense(dimensions)(x)
-        predictions = Activation(softmax)(x)
+        predictions = TimeDistributed(Dense(dimensions, activation='softmax')(x))
         model = Model(inputs=inputs, outputs=predictions)
         model.compile(optimizer='rmsprop',
                       loss='categorical_crossentropy',
